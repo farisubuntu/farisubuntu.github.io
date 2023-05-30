@@ -1,6 +1,6 @@
 # Content
 
-## index.md from /root
+## index.md inside /docs folder
 
 - [CSS Media and RWD](./docs/css-media-and-rwd.md)
 - [Sizing items in css](./docs/sizing_items_in_css.md)
