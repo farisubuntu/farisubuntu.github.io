@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useMediaQuery } from "@/hooks/use-media-queries";
 import { Menu, X, Layers } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ModeToggle } from "@/components/theme-toggler";
 export type MenuItem = {
   label: string;
   link: string;
@@ -13,6 +15,7 @@ export type MenuItem = {
 export function Header({ menuList }: { menuList: MenuItem[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!isMobile && isOpen) {
@@ -21,13 +24,13 @@ export function Header({ menuList }: { menuList: MenuItem[] }) {
   }, [isMobile]);
 
   return (
-    <header className="bg-white shadow-md">
+    <header className="shadow-md flex justify-between items-center px-3">
       <div className="container mx-4">
         <div className="flex items-center gap-5 h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <Layers className="h-8 w-8 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-gray-800">Logo</span>
+              <Layers className="h-8 w-8" />
+              <span className="ml-2 text-xl font-bold">Logo</span>
             </Link>
           </div>
           {isMobile ? (
@@ -50,9 +53,9 @@ export function Header({ menuList }: { menuList: MenuItem[] }) {
                     <Link
                       href={item.link}
                       className={`px-3 py-2 rounded-md text-sm font-medium ${
-                        item.active
-                          ? "bg-blue-600 text-white"
-                          : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                        pathname === item.link
+                          ? "!text-primary-foreground bg-primary"
+                          : "hover:underline hover:font-bold hover:text-primary"
                       }`}
                     >
                       {item.label}
@@ -72,9 +75,9 @@ export function Header({ menuList }: { menuList: MenuItem[] }) {
                 key={item.link}
                 href={item.link}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
-                  item.active
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  pathname === item.link
+                    ? "text-primary bg-primary-foreground"
+                    : "hover:underline hover:font-bold hover:text-primary"
                 }`}
               >
                 {item.label}
@@ -83,6 +86,9 @@ export function Header({ menuList }: { menuList: MenuItem[] }) {
           </div>
         </div>
       )}
+      <div>
+        <ModeToggle />
+      </div>
     </header>
   );
 }
