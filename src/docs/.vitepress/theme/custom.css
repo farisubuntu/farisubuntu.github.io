@@ -1,0 +1,59 @@
+
+/* sample styles */
+/* @import url(https://fonts.googleapis.com/css?family=Space+Mono:regular,italic,700,700italic);
+@import url(https://fonts.googleapis.com/css?family=Space+Grotesk:regular,italic,700,700italic); */
+
+
+:root {
+  --vp-c-brand: #ff7340;
+  --vp-c-brand-light: #ff5719;
+  --vp-c-brand-lighter: #ff7340;
+  --vp-c-brand-lighter: rgba(255, 135, 23, 0.25);
+  --vp-c-brand-dark: #ff622d;
+  --vp-c-brand-darker: #e23c00;
+
+  --vp-c-sponsor: #fd1d7c;
+
+  /* Typography */
+  --vp-font-family-base: "Noto Naskh Arabic","Droid Sans", sans-serif;
+
+  /* Code Snippet font */
+  --vp-font-family-mono: "Space Mono", Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.cards{
+ font-family: Arial, Helvetica, sans-serif;
+ display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  column-gap:3rem ;
+ row-gap: 1rem;
+
+ 
+}
+h1{
+ color:green;
+}
+.card{
+ border-left:12px solid green;
+ padding-left:1rem;
+  width: 250px;
+  
+ transition: transform .2s;
+
+}
+.card:hover{
+  transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  
+  
+}
+
+
+@media screen and (width <=400px) {
+  div.content{
+   grid-template-columns: 1fr;
+  }  
+ }
+ 
+
