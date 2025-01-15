@@ -22,8 +22,8 @@ export function Header({ menuList }: { menuList: MenuItem[] }) {
 
   return (
     <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="container mx-4">
+        <div className="flex items-center gap-5 h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <Layers className="h-8 w-8 text-blue-600" />
@@ -44,7 +44,7 @@ export function Header({ menuList }: { menuList: MenuItem[] }) {
             </button>
           ) : (
             <nav className="hidden md:block">
-              <ul className="flex space-x-4">
+              <ul className="flex space-x-4 ml-5">
                 {menuList.map((item) => (
                   <li key={item.link}>
                     <Link
