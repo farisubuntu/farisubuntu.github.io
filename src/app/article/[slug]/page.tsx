@@ -4,11 +4,15 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const slug = (await params).slug;
-  const { default: Article } = await import(`@/docs/${slug}/index.md`);
+  const { default: Article } = await import(`@/docs/${slug}/index.mdx`);
 
   return (
-    <div>
-      <Article />
-    </div>
+    <>
+      <h1>{slug}</h1>
+
+      <div>
+        <Article />
+      </div>
+    </>
   );
 }
