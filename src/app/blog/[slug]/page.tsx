@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { CustomMDX } from '@/components/mdx'
+// import { CustomMDX } from '@/components/mdx'
 import { formatDate, getBlogPosts } from '@/app/blog/utils'
 
 export async function generateStaticParams() {
@@ -32,7 +32,7 @@ export default function Blog({ params }) {
         </p>
       </div>
       <article className="prose">
-        <CustomMDX source={post.content} />
+        {/* <CustomMDX source={post.content} /> */}
       </article>
     </section>
   )
