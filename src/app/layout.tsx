@@ -22,17 +22,6 @@ export const metadata: Metadata = {
   locale: "en_US",
   type: "website",
  },
- robots: {
-  index: true,
-  follow: true,
-  googleBot: {
-   index: true,
-   follow: true,
-   "max-video-preview": -1,
-   "max-image-preview": "large",
-   "max-snippet": -1,
-  },
- },
 };
 
 // const cx = (...classes) => classes.filter(Boolean).join(" ");
@@ -70,8 +59,7 @@ export default function RootLayout({
      disableTransitionOnChange
     >
      <main className="flex flex-col w-full">
-    
-       <Header menuList={menuList} />
+      <Header menuList={menuList} />
       {children}
       <Footer />
      </main>
