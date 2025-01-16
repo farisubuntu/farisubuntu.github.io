@@ -70,9 +70,8 @@ export default function RootLayout({
      disableTransitionOnChange
     >
      <main className="flex flex-col w-full">
-      <div>
+    
        <Header menuList={menuList} />
-      </div>
       {children}
       <Footer />
      </main>

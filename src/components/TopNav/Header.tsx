@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import * as React from "react";
 import Link from "next/link";
 import { useMediaQuery } from "@/hooks/use-media-queries";
 import { Menu, X, Layers } from "lucide-react";
@@ -12,12 +12,16 @@ export type MenuItem = {
   active?: boolean;
 };
 
-export function Header({ menuList }: { menuList: MenuItem[] }) {
-  const [isOpen, setIsOpen] = useState(false);
+export function Header({
+  menuList,
+}: {
+  menuList: MenuItem[];
+}): React.ReactNode {
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const pathname = usePathname();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!isMobile && isOpen) {
       setIsOpen(false);
     }
