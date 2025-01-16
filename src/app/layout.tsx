@@ -35,7 +35,7 @@ export const metadata: Metadata = {
  },
 };
 
-const cx = (...classes) => classes.filter(Boolean).join(" ");
+// const cx = (...classes) => classes.filter(Boolean).join(" ");
 
 const geistSans = localFont({
  src: "./fonts/GeistVF.woff",
@@ -51,7 +51,7 @@ const geistMono = localFont({
 // menu list
 const menuList: MenuItem[] = [
  { label: "Home", link: "/", active: true },
- { label: "About", link: "/about", active: false },
+ { label: "Blog", link: "/blog", active: false },
  { label: "Contact", link: "/contact", active: false },
 ];
 
