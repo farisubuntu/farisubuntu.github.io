@@ -1,5 +1,5 @@
-import { BlogPosts } from '@/components/posts'
-
+import { BlogPosts } from "@/components/posts";
+import Link from "next/link";
 export default function Page() {
   return (
     <section>
@@ -14,8 +14,11 @@ export default function Page() {
         mode, which eases long coding sessions by reducing eye strain.`}
       </p>
       <div className="my-8">
+        <div className="fixed right-3 border-2 bg-slate-800 p-2 rounded-md text-white">
+          <Link href="../../../pg-sql.html">Postgresql Cheatsheet</Link>
+        </div>
         <BlogPosts />
       </div>
     </section>
-  )
+  );
 }
