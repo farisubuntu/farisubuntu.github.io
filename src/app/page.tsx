@@ -15,7 +15,7 @@ export default function Page() {
       </p>
       <div className="my-8">
         <div className="fixed right-3 border-2 bg-slate-800 p-2 rounded-md text-white">
-          <Link href="../../../pg-sql.html">Postgresql Cheatsheet</Link>
+          <Link href="/blog/cheatsheets/postgresql">Postgresql Cheatsheet</Link>
         </div>
         <BlogPosts />
       </div>

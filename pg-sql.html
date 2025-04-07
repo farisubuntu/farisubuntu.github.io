@@ -63,300 +63,320 @@
 </head>
 
 <body>
-    <h1 id="postgres-sql-query-cheat-sheet">Postgres SQL query cheat sheet</h1>
-    <h4 id="hope-to-enjoy-">Hope to enjoy!</h4>
-    <p><a href="#select">SELECT</a><br><a href="#where">WHERE</a><br><a
-            href="#crud-create-read-update-delete">CRUD</a><br><a href="#change-configuration">Change
-            Configuration</a><br><a href="#aggregation-and-grouping">Aggregation &amp; Grouping</a><br><a
-            href="#pattern-matching">Pattern
-            matching</a><br><a href="#join">JOIN</a><br><a href="#union">UNION</a><br><a
-            href="#constraint">Constraint</a><br><a href="#on-delete">On delete</a><br><a href="#sub-query">Sub
-            query</a><br><a href="#common-table-expressions">CTE</a><br><a href="#index">INDEX</a><br><a
-            href="#view-and-stored-procedure">View and Procedures</a><br><a href="#function">Function</a><br><a
-            href="#trigger">Trigger</a><br><a href="#transferring-data">Transferring Data</a><br><a
-            href="#vaccum">Vaccum</a><br><a href="#other">Other</a> </p>
-    <h1 id="select">SELECT</h1>
-    <p>The SELECT statement is used to select data from a database.The data returned is stored in a result table, called
-        the result-set</p>
-    <ul>
-        <li>
-            <p>return all rows from selected table: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name;
+    <div>
+        <h1 id="postgres-sql-query-cheat-sheet">Postgres SQL query cheat sheet</h1>
+        <h4 id="hope-to-enjoy-">Hope to enjoy!</h4>
+        <p><a href="#select">SELECT</a><br><a href="#where">WHERE</a><br><a
+                href="#crud-create-read-update-delete">CRUD</a><br><a href="#change-configuration">Change
+                Configuration</a><br><a href="#aggregation-and-grouping">Aggregation &amp; Grouping</a><br><a
+                href="#pattern-matching">Pattern
+                matching</a><br><a href="#join">JOIN</a><br><a href="#union">UNION</a><br><a
+                href="#constraint">Constraint</a><br><a href="#on-delete">On delete</a><br><a href="#sub-query">Sub
+                query</a><br><a href="#common-table-expressions">CTE</a><br><a href="#index">INDEX</a><br><a
+                href="#view-and-stored-procedure">View and Procedures</a><br><a href="#function">Function</a><br><a
+                href="#trigger">Trigger</a><br><a href="#transferring-data">Transferring Data</a><br><a
+                href="#vaccum">Vaccum</a><br><a href="#other">Other</a> </p>
+        <h1 id="select">SELECT</h1>
+        <p>The SELECT statement is used to select data from a database.The data returned is stored in a result table,
+            called
+            the result-set</p>
+        <ul>
+            <li>
+                <p>return all rows from selected table: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name;
     </code></pre>
-        </li>
-        <li>
-            <p>return un-repeated rows: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> * <span class="hljs-keyword">FROM</span> table_name;
+            </li>
+            <li>
+                <p>return un-repeated rows: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> * <span class="hljs-keyword">FROM</span> table_name;
     </code></pre>
-        </li>
-        <li>
-            <p>return unique-combination: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name;
+            </li>
+            <li>
+                <p>return unique-combination: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name;
     </code></pre>
-        </li>
-        <li>
-            <p>return all rows but skip first 10 rows: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">OFFSET</span> <span class="hljs-number">10</span>;
+            </li>
+            <li>
+                <p>return all rows but skip first 10 rows: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">OFFSET</span> <span class="hljs-number">10</span>;
     </code></pre>
-        </li>
-        <li>
-            <p>skip first 10 rows and then return 5 rows after that (always it run OFFSET then LIMIT in combination
-                cases):
-            </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">OFFSET</span> <span class="hljs-number">10</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">5</span>;
+            </li>
+            <li>
+                <p>skip first 10 rows and then return 5 rows after that (always it run OFFSET then LIMIT in combination
+                    cases):
+                </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">OFFSET</span> <span class="hljs-number">10</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">5</span>;
     </code></pre>
-        </li>
-        <li>
-            <p>return column1 and greatest and put value in greatest-column according to the comparison result: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, <span class="hljs-keyword">GREATEST</span>(<span class="hljs-number">30</span>, <span class="hljs-number">2</span> * column1)  <span class="hljs-keyword">FROM</span> table_name;
+            </li>
+            <li>
+                <p>return column1 and greatest and put value in greatest-column according to the comparison result: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, <span class="hljs-keyword">GREATEST</span>(<span class="hljs-number">30</span>, <span class="hljs-number">2</span> * column1)  <span class="hljs-keyword">FROM</span> table_name;
     </code></pre>
-        </li>
-        <li>
-            <p>return column1 and least and put value in least-column according to the comparison result: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, <span class="hljs-keyword">LEAST</span>(<span class="hljs-number">30</span>, <span class="hljs-number">2</span> * column1)  <span class="hljs-keyword">FROM</span> table_name;
+            </li>
+            <li>
+                <p>return column1 and least and put value in least-column according to the comparison result: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, <span class="hljs-keyword">LEAST</span>(<span class="hljs-number">30</span>, <span class="hljs-number">2</span> * column1)  <span class="hljs-keyword">FROM</span> table_name;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>ORDER BY</strong>: is used to sort the result-set in ascending or descending order. This keyword
-                sorts
-                the records in ascending order (ASC) by default. To sort the records in descending order, use the DESC
-                keyword.
-            </p>
-            <p> In this example we passed double columns to the ORDER BY, This means when we have the same value on
-                column1,
-                then these rows should order based on the second column:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> column1 <span class="hljs-keyword">ASC</span>, column2 <span class="hljs-keyword">DESC</span>;
+            </li>
+            <li>
+                <p><strong>ORDER BY</strong>: is used to sort the result-set in ascending or descending order. This
+                    keyword
+                    sorts
+                    the records in ascending order (ASC) by default. To sort the records in descending order, use the
+                    DESC
+                    keyword.
+                </p>
+                <p> In this example we passed double columns to the ORDER BY, This means when we have the same value on
+                    column1,
+                    then these rows should order based on the second column:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> column1 <span class="hljs-keyword">ASC</span>, column2 <span class="hljs-keyword">DESC</span>;
     </code></pre>
-            <p> In Postgres, you can return results distinct on a special column Provided that the result be ordered by
-                that
-                column: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> <span class="hljs-keyword">ON</span> (column1) column1, column2 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> column1 <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">10</span>;
+                <p> In Postgres, you can return results distinct on a special column Provided that the result be ordered
+                    by
+                    that
+                    column: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> <span class="hljs-keyword">ON</span> (column1) column1, column2 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> column1 <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">10</span>;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Math Operation</strong>: it is possible to do math operation on column values and return them as
-                a new
-                column. add(+), subtract(-), multiply(*), divide(/), exponent(^), square root(|/), absolute value(@) and
-                remainder(%) are some candidate for this situations. </p>
-            <p> Note: when you make a new temporary column with math operation, this column has not any name, But you
-                can
-                define a name for it with "AS":</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 * column3 <span class="hljs-keyword">AS</span> total <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">10</span>;
+            </li>
+            <li>
+                <p><strong>Math Operation</strong>: it is possible to do math operation on column values and return them
+                    as
+                    a new
+                    column. add(+), subtract(-), multiply(*), divide(/), exponent(^), square root(|/), absolute value(@)
+                    and
+                    remainder(%) are some candidate for this situations. </p>
+                <p> Note: when you make a new temporary column with math operation, this column has not any name, But
+                    you
+                    can
+                    define a name for it with "AS":</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 * column3 <span class="hljs-keyword">AS</span> total <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">10</span>;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>String Operation</strong>: in addition to math operators, SQL offers us some operators and
-                functions to
-                work with strings. we can contact two or more strings with the || or concat() function. there are also
-                some
-                available functions like LENGTH(), LOWER(), and UPPER(). </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, city || <span class="hljs-string">', '</span> || country <span class="hljs-keyword">AS</span> location <span class="hljs-keyword">FROM</span> table_name;
+            </li>
+            <li>
+                <p><strong>String Operation</strong>: in addition to math operators, SQL offers us some operators and
+                    functions to
+                    work with strings. we can contact two or more strings with the || or concat() function. there are
+                    also
+                    some
+                    available functions like LENGTH(), LOWER(), and UPPER(). </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, city || <span class="hljs-string">', '</span> || country <span class="hljs-keyword">AS</span> location <span class="hljs-keyword">FROM</span> table_name;
       <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">CONCAT</span>(<span class="hljs-keyword">LOWER</span>(<span class="hljs-keyword">name</span>), <span class="hljs-string">' - '</span>, <span class="hljs-keyword">UPPER</span>(family)) <span class="hljs-keyword">AS</span> full_name <span class="hljs-keyword">FROM</span> table_name;
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="where">WHERE</h1>
-    <p>The SQL WHERE clause is used to specify a condition while fetching the data from a single table or by joining
-        with
-        multiple tables. If the given condition is satisfied, then only it returns a specific value from the table. You
-        should use the WHERE clause to filter the records and fetching only the necessary records.</p>
-    <ul>
-        <li>
-            <p>Example:</p>
-            <p> example of working with <strong>is</strong> and <strong>is not</strong>:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">IS</span> <span class="hljs-literal">null</span>;
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="where">WHERE</h1>
+        <p>The SQL WHERE clause is used to specify a condition while fetching the data from a single table or by joining
+            with
+            multiple tables. If the given condition is satisfied, then only it returns a specific value from the table.
+            You
+            should use the WHERE clause to filter the records and fetching only the necessary records.</p>
+        <ul>
+            <li>
+                <p>Example:</p>
+                <p> example of working with <strong>is</strong> and <strong>is not</strong>:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">IS</span> <span class="hljs-literal">null</span>;
     </code></pre>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">IS</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>;
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">IS</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>;
     </code></pre>
-            <p> example of working with <strong>and</strong>, <strong>or</strong>:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name 
+                <p> example of working with <strong>and</strong>, <strong>or</strong>:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name 
       <span class="hljs-keyword">WHERE</span> (column1 &gt; <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> column2=<span class="hljs-string">'berlin'</span>) <span class="hljs-keyword">OR</span> (column2=<span class="hljs-string">'berlin'</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">NOT</span> column3=<span class="hljs-number">100</span>);
     </code></pre>
-            <p> example of working with <strong>between</strong>:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">10</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">50</span>;
+                <p> example of working with <strong>between</strong>:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">BETWEEN</span> <span class="hljs-number">10</span> <span class="hljs-keyword">AND</span> <span class="hljs-number">50</span>;
     </code></pre>
-            <p> example of working with <strong>in</strong>:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name 
+                <p> example of working with <strong>in</strong>:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name 
       <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">IN</span> (<span class="hljs-number">300</span>, <span class="hljs-number">400</span>) <span class="hljs-keyword">and</span> column2 != <span class="hljs-string">'somethings'</span>;
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="crud-create-read-update-delete-">CRUD (create, read, update, delete)</h1>
-    <ul>
-        <li>
-            <p><strong>CREATE database</strong>: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> database_name;
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="crud-create-read-update-delete-">CRUD (create, read, update, delete)</h1>
+        <ul>
+            <li>
+                <p><strong>CREATE database</strong>: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> database_name;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>CREATE table</strong>:</p>
-            <pre><code class="lang-sql">  <span class="hljs-type">CREATE</span> <span class="hljs-type">TABLE</span> table_name (
+            </li>
+            <li>
+                <p><strong>CREATE table</strong>:</p>
+                <pre><code class="lang-sql">  <span class="hljs-type">CREATE</span> <span class="hljs-type">TABLE</span> table_name (
           column1 data<span class="hljs-keyword">type</span>,
           column2 data<span class="hljs-keyword">type</span>,
       );
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Add row</strong>:</p>
-            <pre><code class="lang-sql">  INSERT INTO table_name (<span class="hljs-name">column1</span>, column2) VALUES (<span class="hljs-name">value1</span>, value2)<span class="hljs-comment">;</span>
+            </li>
+            <li>
+                <p><strong>Add row</strong>:</p>
+                <pre><code class="lang-sql">  INSERT INTO table_name (<span class="hljs-name">column1</span>, column2) VALUES (<span class="hljs-name">value1</span>, value2)<span class="hljs-comment">;</span>
     </code></pre>
-            <p> Note: To insert data into a table that has a foreign key column, we should insert the value that was in
-                the
-                referenced column or we can insert Null. It will lead to an error if we do not do this.</p>
-        </li>
-        <li>
-            <p><strong>Update row</strong>:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">UPDATE</span> table_name <span class="hljs-keyword">SET</span> column1=value1, column2=value2 <span class="hljs-keyword">WHERE</span> condition;
+                <p> Note: To insert data into a table that has a foreign key column, we should insert the value that was
+                    in
+                    the
+                    referenced column or we can insert Null. It will lead to an error if we do not do this.</p>
+            </li>
+            <li>
+                <p><strong>Update row</strong>:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">UPDATE</span> table_name <span class="hljs-keyword">SET</span> column1=value1, column2=value2 <span class="hljs-keyword">WHERE</span> condition;
     </code></pre>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">UPDATE</span> products <span class="hljs-keyword">SET</span> price=<span class="hljs-number">9999</span> <span class="hljs-keyword">WHERE</span> price <span class="hljs-keyword">is</span> <span class="hljs-literal">NULL</span>;
+                <pre><code class="lang-sql">  <span class="hljs-keyword">UPDATE</span> products <span class="hljs-keyword">SET</span> price=<span class="hljs-number">9999</span> <span class="hljs-keyword">WHERE</span> price <span class="hljs-keyword">is</span> <span class="hljs-literal">NULL</span>;
     </code></pre>
-            <p> Note: To prevent updating unwanted columns, always use WHERE when updating rows.</p>
-        </li>
-        <li>
-            <p><strong>DELETE database</strong>: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">DATABASE</span> database_name;
+                <p> Note: To prevent updating unwanted columns, always use WHERE when updating rows.</p>
+            </li>
+            <li>
+                <p><strong>DELETE database</strong>: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">DATABASE</span> database_name;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>DELETE table</strong>: </p>
-            <pre><code class="lang-sql">  DROP <span class="hljs-keyword">TABLE</span> table_name
+            </li>
+            <li>
+                <p><strong>DELETE table</strong>: </p>
+                <pre><code class="lang-sql">  DROP <span class="hljs-keyword">TABLE</span> table_name
     </code></pre>
-        </li>
-        <li>
-            <p><strong>DELETE row</strong>:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> condition;
+            </li>
+            <li>
+                <p><strong>DELETE row</strong>:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> condition;
     </code></pre>
-            <p> Note: To prevent deleting unwanted columns, always use WHERE when deleting rows.</p>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="change-configuration">Change Configuration</h1>
-    <p>The ALTER TABLE statement is used to add, delete, or modify columns in an existing table. They also used to add
-        and
-        drop various constraints on an existing table:</p>
-    <ul>
-        <li>
-            <p>Rename table:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">RENAME</span> <span class="hljs-keyword">TO</span> new_table_name;
+                <p> Note: To prevent deleting unwanted columns, always use WHERE when deleting rows.</p>
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="change-configuration">Change Configuration</h1>
+        <p>The ALTER TABLE statement is used to add, delete, or modify columns in an existing table. They also used to
+            add
+            and
+            drop various constraints on an existing table:</p>
+        <ul>
+            <li>
+                <p>Rename table:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">RENAME</span> <span class="hljs-keyword">TO</span> new_table_name;
     </code></pre>
-        </li>
-        <li>
-            <p>Add column:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">COLUMN</span> column_name datatype;
+            </li>
+            <li>
+                <p>Add column:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">COLUMN</span> column_name datatype;
     </code></pre>
-        </li>
-        <li>
-            <p>Rename column:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">RENAME</span> column_name <span class="hljs-keyword">TO</span> new_column_name;
+            </li>
+            <li>
+                <p>Rename column:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">RENAME</span> column_name <span class="hljs-keyword">TO</span> new_column_name;
     </code></pre>
-        </li>
-        <li>
-            <p>Delete column:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">COLUMN</span> column_name;
+            </li>
+            <li>
+                <p>Delete column:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">COLUMN</span> column_name;
     </code></pre>
-        </li>
-        <li>
-            <p>Change column datatype:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">COLUMN</span> column_name <span class="hljs-keyword">TYPE</span> datatype;
+            </li>
+            <li>
+                <p>Change column datatype:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">COLUMN</span> column_name <span class="hljs-keyword">TYPE</span> datatype;
     </code></pre>
-            <p> Sometimes it is not possible to cast automatically some datatype to another for example integer to
-                boolean. In
-                these cases can use:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">COLUMN</span> column_name <span class="hljs-keyword">TYPE</span> <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">USING</span> (column_name::<span class="hljs-built_in">BOOLEAN</span>);
+                <p> Sometimes it is not possible to cast automatically some datatype to another for example integer to
+                    boolean. In
+                    these cases can use:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">COLUMN</span> column_name <span class="hljs-keyword">TYPE</span> <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">USING</span> (column_name::<span class="hljs-built_in">BOOLEAN</span>);
     </code></pre>
-        </li>
-        <li>
-            <p>Change column constraint:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">COLUMN</span> column_name <span class="hljs-keyword">SET</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>;
+            </li>
+            <li>
+                <p>Change column constraint:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">COLUMN</span> column_name <span class="hljs-keyword">SET</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>;
     </code></pre>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">COLUMN</span> column_name <span class="hljs-keyword">SET</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1000</span>;
+                <pre><code class="lang-sql">  <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">COLUMN</span> column_name <span class="hljs-keyword">SET</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1000</span>;
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="aggregation-and-grouping">Aggregation and Grouping</h1>
-    <p>An aggregate function in SQL performs a calculation on multiple values and returns a single value. SQL provides
-        many aggregate functions that include avg, count, sum, min, max, etc. An aggregate function ignores NULL values
-        when
-        it performs the calculation, except for the count function. </p>
-    <ul>
-        <li>
-            <p><strong>Aggregation Example</strong>:</p>
-            <p> Note: We can not use aggregate and other column in same SELECT</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MAX</span>(column1) <span class="hljs-keyword">FROM</span> table_name
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="aggregation-and-grouping">Aggregation and Grouping</h1>
+        <p>An aggregate function in SQL performs a calculation on multiple values and returns a single value. SQL
+            provides
+            many aggregate functions that include avg, count, sum, min, max, etc. An aggregate function ignores NULL
+            values
+            when
+            it performs the calculation, except for the count function. </p>
+        <ul>
+            <li>
+                <p><strong>Aggregation Example</strong>:</p>
+                <p> Note: We can not use aggregate and other column in same SELECT</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MAX</span>(column1) <span class="hljs-keyword">FROM</span> table_name
       <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MIN</span>(column1) <span class="hljs-keyword">FROM</span> table_name
       <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">AVG</span>(column1) <span class="hljs-keyword">FROM</span> table_name
       <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">SUM</span>(column1) <span class="hljs-keyword">FROM</span> table_name
       <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">COUNT</span>(*) <span class="hljs-keyword">FROM</span> table_name;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>GROUP BY</strong>: groups rows that have the same values into summary rows, like "find the number
-                of customers in each country". It is often used with aggregate functions that learned about it.</p>
-            <p> Note: when we group a table, just grouped column is directly accessible. For example in the below code
-                we
-                grouped our table based on column1 so we can just select column1 in SELECT - FROM:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> total &gt; <span class="hljs-number">2000</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> column1;
+            </li>
+            <li>
+                <p><strong>GROUP BY</strong>: groups rows that have the same values into summary rows, like "find the
+                    number
+                    of customers in each country". It is often used with aggregate functions that learned about it.</p>
+                <p> Note: when we group a table, just grouped column is directly accessible. For example in the below
+                    code
+                    we
+                    grouped our table based on column1 so we can just select column1 in SELECT - FROM:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> total &gt; <span class="hljs-number">2000</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> column1;
     </code></pre>
-            <p> Note: After grouping a table based on a special column, other columns in this temporary table are
-                reachable
-                through Aggregate functions or we can access them directly if they was unique(single) for every group:
-            </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, <span class="hljs-keyword">MAX</span>(column2) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> column1;
+                <p> Note: After grouping a table based on a special column, other columns in this temporary table are
+                    reachable
+                    through Aggregate functions or we can access them directly if they was unique(single) for every
+                    group:
+                </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, <span class="hljs-keyword">MAX</span>(column2) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> column1;
       <span class="hljs-keyword">SELECT</span> column1, <span class="hljs-keyword">COUNT</span>(*) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> column1;
     </code></pre>
-            <p> Example of counting un-repeated rows: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">COUNT</span>(<span class="hljs-keyword">DISTINCT</span> country) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> country;
+                <p> Example of counting un-repeated rows: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">COUNT</span>(<span class="hljs-keyword">DISTINCT</span> country) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> country;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Having</strong>: group by will use to groups rows by a unique set of values but having is for
-                filtering
-                the set of groups. It is not necessary to use having with the group by but if we want to do some filter
-                on the
-                group then we should use having:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, COUNT<span class="hljs-comment">(*) FROM table_name WHERE column1 &gt; 2000 
+            </li>
+            <li>
+                <p><strong>Having</strong>: group by will use to groups rows by a unique set of values but having is for
+                    filtering
+                    the set of groups. It is not necessary to use having with the group by but if we want to do some
+                    filter
+                    on the
+                    group then we should use having:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, COUNT<span class="hljs-comment">(*) FROM table_name WHERE column1 &gt; 2000 
       GROUP BY column1 HAVING COUNT(*)</span> &gt; <span class="hljs-number">2</span>;
     </code></pre>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, <span class="hljs-keyword">SUM</span>(column2 * column3) <span class="hljs-keyword">FROM</span> table_name 
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, <span class="hljs-keyword">SUM</span>(column2 * column3) <span class="hljs-keyword">FROM</span> table_name 
       <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> column1 <span class="hljs-keyword">HAVING</span> <span class="hljs-keyword">SUM</span>(column2 * column3) &gt; <span class="hljs-number">1000</span>;
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="pattern-matching">Pattern matching</h1>
-    <ul>
-        <li>
-            <p><strong>SQL pattern matching</strong>: enables you to use _ to match any single character and % to match
-                an
-                arbitrary number of characters (including zero characters).<br>Some examples are shown here. Do not use
-                = or
-                &lt;&gt; when you use SQL patterns. Use the LIKE or NOT LIKE comparison operators instead.</p>
-            <p> start whith A, continue with everything, end to e:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'A%e'</span>;
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="pattern-matching">Pattern matching</h1>
+        <ul>
+            <li>
+                <p><strong>SQL pattern matching</strong>: enables you to use _ to match any single character and % to
+                    match
+                    an
+                    arbitrary number of characters (including zero characters).<br>Some examples are shown here. Do not
+                    use
+                    = or
+                    &lt;&gt; when you use SQL patterns. Use the LIKE or NOT LIKE comparison operators instead.</p>
+                <p> start whith A, continue with everything, end to e:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'A%e'</span>;
     </code></pre>
-            <p> start whith A, continue with everything, e, continue with everything,</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'A%e%'</span>;
+                <p> start whith A, continue with everything, e, continue with everything,</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'A%e%'</span>;
     </code></pre>
-            <p> start whith A, just 1 char between, f, everything:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'A_f%'</span>;
+                <p> start whith A, just 1 char between, f, everything:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column1 <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'A_f%'</span>;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Regex pattern matching</strong>: the TILDE “~” operator brings us to the more complex pattern
-                matching
-                operator. It matches regular expressions in different ways: </p>
-            <p> | Operator | Description |
-                | ----------- | ----------- |
-                | ~ | Matches regular expression, case sensitive |
-                | ~<em> | Matches regular expression, case insensitive |
-                    | !~ | Does not match regular expression, case sensitive |
-                    | !~</em> | Does not match regular expression, case insensitive |</p>
-        </li>
-    </ul>
-    <pre><code>```sql
+            </li>
+            <li>
+                <p><strong>Regex pattern matching</strong>: the TILDE “~” operator brings us to the more complex pattern
+                    matching
+                    operator. It matches regular expressions in different ways: </p>
+                <p> | Operator | Description |
+                    | ----------- | ----------- |
+                    | ~ | Matches regular expression, case sensitive |
+                    | ~<em> | Matches regular expression, case insensitive |
+                        | !~ | Does not match regular expression, case sensitive |
+                        | !~</em> | Does not match regular expression, case insensitive |</p>
+            </li>
+        </ul>
+        <pre><code>```sql
     SELECT * FROM table_name WHERE column1 ~ <span class="hljs-string">'^[A-Z][0-9].*$'</span>;
     ```
     
@@ -380,169 +400,186 @@
     SELECT REGEXP_MATCHES(description, <span class="hljs-string">'Cat | Dog'</span>) FROM film;
     ```
     </code></pre>
-    <p><br></p>
-    <h1 id="join">JOIN</h1>
-    <h3 id="select-column-from-different-table-">Select column from different table:</h3>
-    <p>We use join to merge different tables for reaching something meaningful. In this section, we’ll show how to do
-        that
-        using different types of joins:</p>
-    <ul>
-        <li>
-            <p><strong>INNER JOIN</strong>: An inner join focuses on the commonality between two tables. When using an
-                inner
-                join, there must be at least some matching data between two (or more) tables that are being compared. An
-                inner
-                join searches tables for matching or overlapping data. Upon finding it, the inner join combines and
-                returns the
-                information into one new table. So you’ll use INNER JOIN when you want to return only records having
-                pair on
-                both sides. </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_one <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> table_two 
+        <p><br></p>
+        <h1 id="join">JOIN</h1>
+        <h3 id="select-column-from-different-table-">Select column from different table:</h3>
+        <p>We use join to merge different tables for reaching something meaningful. In this section, we’ll show how to
+            do
+            that
+            using different types of joins:</p>
+        <ul>
+            <li>
+                <p><strong>INNER JOIN</strong>: An inner join focuses on the commonality between two tables. When using
+                    an
+                    inner
+                    join, there must be at least some matching data between two (or more) tables that are being
+                    compared. An
+                    inner
+                    join searches tables for matching or overlapping data. Upon finding it, the inner join combines and
+                    returns the
+                    information into one new table. So you’ll use INNER JOIN when you want to return only records having
+                    pair on
+                    both sides. </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_one <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> table_two 
       <span class="hljs-keyword">ON</span> table_one.count=table_two.count;
     </code></pre>
-            <p> Note: if there is some column that have same name in two different tables, Then you can not Join like
-                above
-                code. Instead you should define alias or note the table name for columns. See this example: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> table_one.column1, table_two.column2 <span class="hljs-keyword">FROM</span> table_one
+                <p> Note: if there is some column that have same name in two different tables, Then you can not Join
+                    like
+                    above
+                    code. Instead you should define alias or note the table name for columns. See this example: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> table_one.column1, table_two.column2 <span class="hljs-keyword">FROM</span> table_one
       <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> table_two <span class="hljs-keyword">on</span> table_one.id=table_two.id;
     </code></pre>
-            <p> Note: if you want to return columns from different tables with the same title, it is best to set alias
-                name
-                for them to use as a temporary name in column header. See this example: </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> table_one.column1 <span class="hljs-keyword">AS</span> <span class="hljs-keyword">name</span>, table_two.column1 <span class="hljs-keyword">AS</span> other_name <span class="hljs-keyword">FROM</span> table_one
+                <p> Note: if you want to return columns from different tables with the same title, it is best to set
+                    alias
+                    name
+                    for them to use as a temporary name in column header. See this example: </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> table_one.column1 <span class="hljs-keyword">AS</span> <span class="hljs-keyword">name</span>, table_two.column1 <span class="hljs-keyword">AS</span> other_name <span class="hljs-keyword">FROM</span> table_one
       <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> table_two <span class="hljs-keyword">on</span> table_one.id=table_two.id;
     </code></pre>
-            <p> example of inner join between three different tables:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> table_one.first, table_one.last, table_two.start, table_two.end, table_three.outcome
+                <p> example of inner join between three different tables:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> table_one.first, table_one.last, table_two.start, table_two.end, table_three.outcome
       <span class="hljs-keyword">FROM</span> table_one
       <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> table_two <span class="hljs-keyword">ON</span> table_two.employee = table_one.id
       <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> table_three <span class="hljs-keyword">ON</span> table_two.outcome = table_three.id
       <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> table_two.start <span class="hljs-keyword">ASC</span>;
     </code></pre>
-        </li>
-    </ul>
-    <ul>
-        <li>
-            <p><strong>LEFT JOIN</strong>: Writing queries that use LEFT JOINs doesn’t differ a lot when compared to
-                writing
-                queries using INNER JOINs. The result would, of course, be different (at least in cases when some
-                records don’t
-                have a pair in other tables).<br>The result of LEFT JOIN shall be the same as the result of INNER JOIN +
-                we’ll
-                have rows, from the “left” table, without a pair in the “right” table.</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> table_two 
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <p><strong>LEFT JOIN</strong>: Writing queries that use LEFT JOINs doesn’t differ a lot when compared to
+                    writing
+                    queries using INNER JOINs. The result would, of course, be different (at least in cases when some
+                    records don’t
+                    have a pair in other tables).<br>The result of LEFT JOIN shall be the same as the result of INNER
+                    JOIN +
+                    we’ll
+                    have rows, from the “left” table, without a pair in the “right” table.</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> table_two 
       <span class="hljs-keyword">ON</span> table_name.count=table_two.count;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>RIGHT JOIN</strong>: The result of RIGHT JOIN shall be the same as the result of INNER JOIN +
-                we’ll
-                have rows, from the “right” table, without a pair in the “left” table. So it will return all from right
-                but just
-                put value if there is a pair in left</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span> table_two 
+            </li>
+            <li>
+                <p><strong>RIGHT JOIN</strong>: The result of RIGHT JOIN shall be the same as the result of INNER JOIN +
+                    we’ll
+                    have rows, from the “right” table, without a pair in the “left” table. So it will return all from
+                    right
+                    but just
+                    put value if there is a pair in left</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span> table_two 
       <span class="hljs-keyword">ON</span> table_name.count=table_two.count;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>SELF JOIN</strong>: A self join is a regular join, but the table is joined with itself (T1 and T2
-                are
-                different table aliases for the same table):</p>
-            <pre><code class="lang-sql">  SELECT <span class="hljs-built_in">t1</span>.column1, <span class="hljs-built_in">t2</span>.column1
+            </li>
+            <li>
+                <p><strong>SELF JOIN</strong>: A self join is a regular join, but the table is joined with itself (T1
+                    and T2
+                    are
+                    different table aliases for the same table):</p>
+                <pre><code class="lang-sql">  SELECT <span class="hljs-built_in">t1</span>.column1, <span class="hljs-built_in">t2</span>.column1
       FROM table_name <span class="hljs-built_in">t1</span>,  table_name <span class="hljs-built_in">t2</span> 
       WHERE <span class="hljs-built_in">t1</span>.column1 &gt; <span class="hljs-built_in">t2</span>.column1<span class="hljs-comment">;</span>
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="union">UNION</h1>
-    <p>There are several options you can use to combine data from multiple data. One of those option is to decide
-        whether
-        to use Joins or Unions.<br>In simple terms, joins combine data into new columns. The query uses a “join
-        condition”
-        to match column together to form new rows. The new rows consist of column values from both tables. But
-        <strong>Unions</strong> combine data into new rows. Here the union takes the result as rows and appends them
-        together row by row.
-    </p>
-    <ul>
-        <li>
-            <p><strong>Union</strong>: join together the results of two queries and remove duplicated if use without
-                <strong>ALL</strong> keyword<br> Note: union columns should be with same count and same datatype as
-                well.
-            </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_one 
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="union">UNION</h1>
+        <p>There are several options you can use to combine data from multiple data. One of those option is to decide
+            whether
+            to use Joins or Unions.<br>In simple terms, joins combine data into new columns. The query uses a “join
+            condition”
+            to match column together to form new rows. The new rows consist of column values from both tables. But
+            <strong>Unions</strong> combine data into new rows. Here the union takes the result as rows and appends them
+            together row by row.
+        </p>
+        <ul>
+            <li>
+                <p><strong>Union</strong>: join together the results of two queries and remove duplicated if use without
+                    <strong>ALL</strong> keyword<br> Note: union columns should be with same count and same datatype as
+                    well.
+                </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_one 
       <span class="hljs-keyword">UNION</span> ALL
       <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_two;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Intersect</strong>: return common result of two queries and remove duplicated if use without
-                <strong>ALL</strong> keyword
-            </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_one 
+            </li>
+            <li>
+                <p><strong>Intersect</strong>: return common result of two queries and remove duplicated if use without
+                    <strong>ALL</strong> keyword
+                </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_one 
       <span class="hljs-keyword">INTERSECT</span> ALL
       <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_two;
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Except</strong>: find the rows that are present in first query but not second query and remove
-                duplicated if use without <strong>ALL</strong> keyword </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_one 
+            </li>
+            <li>
+                <p><strong>Except</strong>: find the rows that are present in first query but not second query and
+                    remove
+                    duplicated if use without <strong>ALL</strong> keyword </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_one 
       <span class="hljs-keyword">EXCEPT</span> ALL
       <span class="hljs-keyword">SELECT</span> column1 <span class="hljs-keyword">FROM</span> table_two;
     </code></pre>
-        </li>
-    </ul>
-    <h1 id="constraint">Constraint</h1>
-    <h4 id="specify-rules-for-data-in-a-table-">Specify rules for data in a table:</h4>
-    <p>Constraints are used to limit the type of data that can go into a table (specify rules for data). This ensures
-        the
-        accuracy and reliability of the data in the table. If there is any violation between the constraint and the data
-        action, the action is aborted. They can be specified when the table is created with the <strong>CREATE
-            TABLE</strong> statement, or after the table is created with the <strong>ALTER TABLE</strong>
-        statement.<br>Constraints can be column level or table level. Column level constraints apply to a column, and
-        table
-        level constraints apply to the whole table:</p>
-    <ul>
-        <li>
-            <p><strong>Not null</strong>: ensures that a column cannot have a NULL value</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> table_one (
+            </li>
+        </ul>
+        <h1 id="constraint">Constraint</h1>
+        <h4 id="specify-rules-for-data-in-a-table-">Specify rules for data in a table:</h4>
+        <p>Constraints are used to limit the type of data that can go into a table (specify rules for data). This
+            ensures
+            the
+            accuracy and reliability of the data in the table. If there is any violation between the constraint and the
+            data
+            action, the action is aborted. They can be specified when the table is created with the <strong>CREATE
+                TABLE</strong> statement, or after the table is created with the <strong>ALTER TABLE</strong>
+            statement.<br>Constraints can be column level or table level. Column level constraints apply to a column,
+            and
+            table
+            level constraints apply to the whole table:</p>
+        <ul>
+            <li>
+                <p><strong>Not null</strong>: ensures that a column cannot have a NULL value</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> table_one (
           column1 datatype <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
       );
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Unique</strong>: ensures that all values in a column are different</p>
-            <pre><code class="lang-sql">  CREATE <span class="hljs-keyword">TABLE</span> table_one <span class="hljs-comment">(</span>
+            </li>
+            <li>
+                <p><strong>Unique</strong>: ensures that all values in a column are different</p>
+                <pre><code class="lang-sql">  CREATE <span class="hljs-keyword">TABLE</span> table_one <span class="hljs-comment">(</span>
           column1 datatype UNIQUE,
       );
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Primary key</strong>: a combination of a NOT NULL and UNIQUE. If we set a primary column datatype
-                as
-                <strong>SERIAL</strong> then it will fill automatically with inserting data to the table:
-            </p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> table_one (
+            </li>
+            <li>
+                <p><strong>Primary key</strong>: a combination of a NOT NULL and UNIQUE. If we set a primary column
+                    datatype
+                    as
+                    <strong>SERIAL</strong> then it will fill automatically with inserting data to the table:
+                </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> table_one (
           column1 <span class="hljs-built_in">serial</span> PRIMARY <span class="hljs-keyword">KEY</span>,
       );
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Foreign key</strong>: a foreign key column in a table points to a column with unique values in
-                another
-                table (often the primary key column) to create a way of cross-referencing the two tables. It is a
-                constraint
-                that links a column in one table (table_1.column_a) to a column in a different table (table_2.column_b)
-                and
-                ensures that a value can be added to column_a only if the same value already exists in column_b. Foreign
-                key
-                constraints are used to create relationships between tables.<br>The table with the foreign key is called
-                the
-                child table, and second table is called the referenced or parent table. </p>
-        </li>
-    </ul>
-    <pre><code>```sql
+            </li>
+            <li>
+                <p><strong>Foreign key</strong>: a foreign key column in a table points to a column with unique values
+                    in
+                    another
+                    table (often the primary key column) to create a way of cross-referencing the two tables. It is a
+                    constraint
+                    that links a column in one table (table_1.column_a) to a column in a different table
+                    (table_2.column_b)
+                    and
+                    ensures that a value can be added to column_a only if the same value already exists in column_b.
+                    Foreign
+                    key
+                    constraints are used to create relationships between tables.<br>The table with the foreign key is
+                    called
+                    the
+                    child table, and second table is called the referenced or parent table. </p>
+            </li>
+        </ul>
+        <pre><code>```sql
     CREATE TABLE table_child (
         ...,
         column1 datatype,
@@ -558,247 +595,278 @@
     );
     ```
     </code></pre>
-    <ul>
-        <li>
-            <p><strong>Default</strong>: sets a default value for a column if no value is specified</p>
-            <pre><code class="lang-sql">  CREATE <span class="hljs-keyword">TABLE</span> table_one <span class="hljs-comment">(</span>
+        <ul>
+            <li>
+                <p><strong>Default</strong>: sets a default value for a column if no value is specified</p>
+                <pre><code class="lang-sql">  CREATE <span class="hljs-keyword">TABLE</span> table_one <span class="hljs-comment">(</span>
           column1 datatype DEFAULT <span class="hljs-string">'jeff'</span>
       );
     </code></pre>
-        </li>
-        <li>
-            <p><strong>Check</strong>: ensures that the values in a column satisfies a specific condition (we can not
-                use
-                sub-queries as condition here. just basic operators are acceptable)</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> table_one (
+            </li>
+            <li>
+                <p><strong>Check</strong>: ensures that the values in a column satisfies a specific condition (we can
+                    not
+                    use
+                    sub-queries as condition here. just basic operators are acceptable)</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> table_one (
           column1 <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">CHECK</span> (column1 &gt; <span class="hljs-number">0</span>)
       );
     </code></pre>
-            <p> it is possible to check between different columns:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> table_one (
+                <p> it is possible to check between different columns:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> table_one (
           price <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
           discount <span class="hljs-built_in">INTEGER</span>,
           <span class="hljs-keyword">CHECK</span> (discount &lt; price)
       );
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="on-delete">On delete</h1>
-    <p>When you create a foreign key in your database, you can specify what happens upon delete of the parent row. There
-        are usually four possibilities:</p>
-    <ul>
-        <li><strong>ON DELETE SET NULL</strong>: specifies that when a referenced row is deleted (in parent table),
-            row(s)
-            referencing (in child table) should be set to <strong>null</strong> automatically.</li>
-        <li><strong>ON DELETE CASCADE</strong>: specifies that when a referenced row is deleted (in parent table),
-            row(s)
-            referencing (in child table) should be automatically deleted as well. </li>
-        <li><strong>ON DELETE RESTRICT</strong>: prevents deletion of a referenced row in the parent table. This means
-            if we
-            try to delete a row in the parent table that has been referenced in the child table we faced an error</li>
-        <li><strong>ON DELETE NO ACTION</strong>: it's very similar to <strong>ON DELETE RESTRICT</strong> with a little
-            differences. It means that if any referencing rows still exist when the constraint is checked, an error is
-            raised;
-            this is the default behavior if you do not specify anything</li>
-    </ul>
-    <p>Note: In Some Databases there is no RESTRICT keyword. For example the only option in MySQL is NO ACTION and there
-        is no difference between ON DELETE RESTRICT and ON DELETE NO ACTION.</p>
-    <pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">parent</span> (
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="on-delete">On delete</h1>
+        <p>When you create a foreign key in your database, you can specify what happens upon delete of the parent row.
+            There
+            are usually four possibilities:</p>
+        <ul>
+            <li><strong>ON DELETE SET NULL</strong>: specifies that when a referenced row is deleted (in parent table),
+                row(s)
+                referencing (in child table) should be set to <strong>null</strong> automatically.</li>
+            <li><strong>ON DELETE CASCADE</strong>: specifies that when a referenced row is deleted (in parent table),
+                row(s)
+                referencing (in child table) should be automatically deleted as well. </li>
+            <li><strong>ON DELETE RESTRICT</strong>: prevents deletion of a referenced row in the parent table. This
+                means
+                if we
+                try to delete a row in the parent table that has been referenced in the child table we faced an error
+            </li>
+            <li><strong>ON DELETE NO ACTION</strong>: it's very similar to <strong>ON DELETE RESTRICT</strong> with a
+                little
+                differences. It means that if any referencing rows still exist when the constraint is checked, an error
+                is
+                raised;
+                this is the default behavior if you do not specify anything</li>
+        </ul>
+        <p>Note: In Some Databases there is no RESTRICT keyword. For example the only option in MySQL is NO ACTION and
+            there
+            is no difference between ON DELETE RESTRICT and ON DELETE NO ACTION.</p>
+        <pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">parent</span> (
         <span class="hljs-keyword">id</span> <span class="hljs-built_in">SERIAL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
         <span class="hljs-keyword">name</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">20</span>),
         ...
     );
     </code></pre>
-    <pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">child</span> (
+        <pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">child</span> (
         <span class="hljs-keyword">id</span> <span class="hljs-built_in">SERIAL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
         parent_id <span class="hljs-built_in">int</span> <span class="hljs-keyword">REFERENCES</span> <span class="hljs-keyword">parent</span>(<span class="hljs-keyword">id</span>) <span class="hljs-keyword">ON</span> <span class="hljs-keyword">DELETE</span> RESTRICT,
         ...
     );
     </code></pre>
-    <p><br></p>
-    <h1 id="sub-query">Sub query</h1>
-    <p>A subquery or Inner query or Nested query is a query within another PostgreSQL query and embedded within the
-        WHERE
-        clause. It is used to return data that will be used in the main query as a condition to further restrict the
-        data to
-        be retrieved.<br>Subqueries can be used with the SELECT, INSERT, UPDATE and DELETE statements along with the
-        operators like =, &lt;, &gt;, &gt;=, &lt;=, IN, etc.
-        Remember there are a few rules that subqueries must follow:</p>
-    <ul>
-        <li>Subqueries must be enclosed within parentheses.</li>
-        <li>A subquery can have only one column in the SELECT clause, unless multiple columns are in the main query for
-            the
-            subquery to compare its selected columns.</li>
-        <li>An ORDER BY cannot be used in a subquery, although the main query can use an ORDER BY. The GROUP BY can be
-            used
-            to perform the same function as the ORDER BY in a subquery.</li>
-        <li>Subqueries that return more than one row can only be used with multiple value operators, such as the IN,
-            EXISTS,
-            NOT IN, ANY/SOME, ALL operator.</li>
-        <li>The BETWEEN operator cannot be used with a subquery; however, the BETWEEN can be used within the subquery.
-        </li>
-    </ul>
-    <p><strong>Note</strong>: sub-queries can be use in different locations and it can be a little confusing for
-        beginners. </p>
-    <ul>
-        <li>
-            <p>Sub-query in WHERE: this sub queries are most frequently used against another kind of sub-queries:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> first_name, last_name <span class="hljs-keyword">FROM</span> customers
+        <p><br></p>
+        <h1 id="sub-query">Sub query</h1>
+        <p>A subquery or Inner query or Nested query is a query within another PostgreSQL query and embedded within the
+            WHERE
+            clause. It is used to return data that will be used in the main query as a condition to further restrict the
+            data to
+            be retrieved.<br>Subqueries can be used with the SELECT, INSERT, UPDATE and DELETE statements along with the
+            operators like =, &lt;, &gt;, &gt;=, &lt;=, IN, etc.
+            Remember there are a few rules that subqueries must follow:</p>
+        <ul>
+            <li>Subqueries must be enclosed within parentheses.</li>
+            <li>A subquery can have only one column in the SELECT clause, unless multiple columns are in the main query
+                for
+                the
+                subquery to compare its selected columns.</li>
+            <li>An ORDER BY cannot be used in a subquery, although the main query can use an ORDER BY. The GROUP BY can
+                be
+                used
+                to perform the same function as the ORDER BY in a subquery.</li>
+            <li>Subqueries that return more than one row can only be used with multiple value operators, such as the IN,
+                EXISTS,
+                NOT IN, ANY/SOME, ALL operator.</li>
+            <li>The BETWEEN operator cannot be used with a subquery; however, the BETWEEN can be used within the
+                subquery.
+            </li>
+        </ul>
+        <p><strong>Note</strong>: sub-queries can be use in different locations and it can be a little confusing for
+            beginners. </p>
+        <ul>
+            <li>
+                <p>Sub-query in WHERE: this sub queries are most frequently used against another kind of sub-queries:
+                </p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> first_name, last_name <span class="hljs-keyword">FROM</span> customers
       <span class="hljs-keyword">WHERE</span> salary &gt; (
               <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">max</span>(salary) <span class="hljs-keyword">FROM</span> employees
       );
     </code></pre>
-        </li>
-        <li>
-            <p>Sub-query inside of FROM: suppose a scenario that we want to find maximum average of price for different
-                manufactures. As you know the aggregate functions can not be used in nested form. So we can not resolve
-                this
-                problem with them. In like the situation the solution is sub-queries:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MAX</span>(p.avg_price) <span class="hljs-keyword">AS</span> max_average_price 
+            </li>
+            <li>
+                <p>Sub-query inside of FROM: suppose a scenario that we want to find maximum average of price for
+                    different
+                    manufactures. As you know the aggregate functions can not be used in nested form. So we can not
+                    resolve
+                    this
+                    problem with them. In like the situation the solution is sub-queries:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MAX</span>(p.avg_price) <span class="hljs-keyword">AS</span> max_average_price 
       <span class="hljs-keyword">FROM</span> (
               <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">AVG</span>(price) <span class="hljs-keyword">AS</span> avg_price 
               <span class="hljs-keyword">FROM</span> phones 
               <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> manufactures
       ) <span class="hljs-keyword">AS</span> p;
     </code></pre>
-        </li>
-        <li>
-            <p>Sub-query in SELECT:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, price, price / (<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MAX</span>(price) <span class="hljs-keyword">FROM</span> phones) <span class="hljs-keyword">AS</span> price_ratio <span class="hljs-keyword">FROM</span> phones;
+            </li>
+            <li>
+                <p>Sub-query in SELECT:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, price, price / (<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MAX</span>(price) <span class="hljs-keyword">FROM</span> phones) <span class="hljs-keyword">AS</span> price_ratio <span class="hljs-keyword">FROM</span> phones;
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="common-table-expressions">Common Table Expressions</h1>
-    <ul>
-        <li>
-            <p><strong>Simple CTE:</strong> In PostgreSQL, the WITH query provides a way to write auxiliary statements
-                for use
-                in a larger query. It helps in breaking down complicated and large queries into simpler forms, which are
-                easily
-                readable. These statements often referred to as Common Table Expressions or CTEs, can be thought of as
-                defining
-                temporary tables that exist just for one query.</p>
-            <p> The WITH query being CTE query, is particularly useful when subquery is executed multiple times. It is
-                equally
-                helpful in place of temporary tables. It computes the aggregation once and allows us to reference it by
-                its name
-                (may be multiple times) in the queries. Example:</p>
-            <pre><code class="lang-sql">  WITH CTE AS (<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">ID</span>, <span class="hljs-keyword">NAME</span>, AGE, ADDRESS <span class="hljs-keyword">FROM</span> COMPANY)
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="common-table-expressions">Common Table Expressions</h1>
+        <ul>
+            <li>
+                <p><strong>Simple CTE:</strong> In PostgreSQL, the WITH query provides a way to write auxiliary
+                    statements
+                    for use
+                    in a larger query. It helps in breaking down complicated and large queries into simpler forms, which
+                    are
+                    easily
+                    readable. These statements often referred to as Common Table Expressions or CTEs, can be thought of
+                    as
+                    defining
+                    temporary tables that exist just for one query.</p>
+                <p> The WITH query being CTE query, is particularly useful when subquery is executed multiple times. It
+                    is
+                    equally
+                    helpful in place of temporary tables. It computes the aggregation once and allows us to reference it
+                    by
+                    its name
+                    (may be multiple times) in the queries. Example:</p>
+                <pre><code class="lang-sql">  WITH CTE AS (<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">ID</span>, <span class="hljs-keyword">NAME</span>, AGE, ADDRESS <span class="hljs-keyword">FROM</span> COMPANY)
       <span class="hljs-keyword">Select</span> * <span class="hljs-keyword">From</span> CTE;
     </code></pre>
-            <p> <strong>Note</strong>: The WITH clause must be defined before it is used in the query.</p>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="index">INDEX</h1>
-    <p>Indexes are a common way to enhance database performance. An index allows the database server to find and
-        retrieve
-        specific rows much faster than it could do without an index. But indexes also add overhead to the database
-        system as
-        a whole, so they should be used sensibly. </p>
-    <p>Indexing will add some data to the original database and increase the size of data which can lead to extra costs
-        for data storage. The INSERT and UPDATE statements take more time on tables having indexes, whereas the SELECT
-        statements become fast on those tables. The reason is that while doing INSERT or UPDATE, a database needs to
-        insert
-        or update the index values as well. So for situations that works too many with UPDATE and INSERT the indexing
-        may
-        have more downside against benefits.</p>
-    <p>The main structure for defining index is:</p>
-    <ul>
-        <li><strong>[USING method]</strong>: btree, hash, gist, spgist, gin, or brin. PostgreSQL uses btree by default.
-        </li>
-        <li><strong>[ASC | DESC]</strong> : specify the sort order. ASC is the default. </li>
-        <li>
-            <p><strong>[NULLS {FIRST | LAST }]</strong>: specifies nulls sort before or after non-nulls. The NULLS FIRST
-                is
-                the default when DESC is specified and NULLS LAST is the default when DESC is not specified.</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> index_name <span class="hljs-keyword">ON</span> table_name [<span class="hljs-keyword">USING</span> <span class="hljs-function"><span class="hljs-keyword">method</span>]
+                <p> <strong>Note</strong>: The WITH clause must be defined before it is used in the query.</p>
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="index">INDEX</h1>
+        <p>Indexes are a common way to enhance database performance. An index allows the database server to find and
+            retrieve
+            specific rows much faster than it could do without an index. But indexes also add overhead to the database
+            system as
+            a whole, so they should be used sensibly. </p>
+        <p>Indexing will add some data to the original database and increase the size of data which can lead to extra
+            costs
+            for data storage. The INSERT and UPDATE statements take more time on tables having indexes, whereas the
+            SELECT
+            statements become fast on those tables. The reason is that while doing INSERT or UPDATE, a database needs to
+            insert
+            or update the index values as well. So for situations that works too many with UPDATE and INSERT the
+            indexing
+            may
+            have more downside against benefits.</p>
+        <p>The main structure for defining index is:</p>
+        <ul>
+            <li><strong>[USING method]</strong>: btree, hash, gist, spgist, gin, or brin. PostgreSQL uses btree by
+                default.
+            </li>
+            <li><strong>[ASC | DESC]</strong> : specify the sort order. ASC is the default. </li>
+            <li>
+                <p><strong>[NULLS {FIRST | LAST }]</strong>: specifies nulls sort before or after non-nulls. The NULLS
+                    FIRST
+                    is
+                    the default when DESC is specified and NULLS LAST is the default when DESC is not specified.</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> index_name <span class="hljs-keyword">ON</span> table_name [<span class="hljs-keyword">USING</span> <span class="hljs-function"><span class="hljs-keyword">method</span>]
       <span class="hljs-params">(
           column_name [<span class="hljs-keyword">ASC</span> | <span class="hljs-keyword">DESC</span>] [NULLS {FIRST | LAST }],
           ...
       )</span>;</span>
     </code></pre>
-        </li>
-    </ul>
-    <ul>
-        <li>
-            <p>Example:</p>
-            <ul>
-                <li>
-                    <p><strong>Basic B-tree index</strong>:</p>
-                    <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> index_name <span class="hljs-keyword">ON</span> table_name (column_name);
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <p>Example:</p>
+                <ul>
+                    <li>
+                        <p><strong>Basic B-tree index</strong>:</p>
+                        <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> index_name <span class="hljs-keyword">ON</span> table_name (column_name);
     </code></pre>
-                </li>
-                <li>
-                    <p><strong>Hash index</strong>:
-                        In some cases, such as when indexing a column with TEXT datatype and full of data, we can index
-                        the hash of
-                        the data instead of the actual data to speed up the process. For accomplish this goal can define
-                        separate
-                        column that store the hash of data_column and index it or do it directly:</p>
-                    <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> index_name <span class="hljs-keyword">ON</span> table_name <span class="hljs-keyword">USING</span> <span class="hljs-keyword">hash</span> (column_name);
+                    </li>
+                    <li>
+                        <p><strong>Hash index</strong>:
+                            In some cases, such as when indexing a column with TEXT datatype and full of data, we can
+                            index
+                            the hash of
+                            the data instead of the actual data to speed up the process. For accomplish this goal can
+                            define
+                            separate
+                            column that store the hash of data_column and index it or do it directly:</p>
+                        <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> index_name <span class="hljs-keyword">ON</span> table_name <span class="hljs-keyword">USING</span> <span class="hljs-keyword">hash</span> (column_name);
     </code></pre>
-                </li>
-                <li>
-                    <p><strong>Unique indexes</strong>: are used not only for performance, but also for data integrity.
-                        A unique
-                        index does not allow any duplicate values to be inserted into the table:</p>
-                    <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">INDEX</span> index_name <span class="hljs-keyword">ON</span> table_name (column1_name);
+                    </li>
+                    <li>
+                        <p><strong>Unique indexes</strong>: are used not only for performance, but also for data
+                            integrity.
+                            A unique
+                            index does not allow any duplicate values to be inserted into the table:</p>
+                        <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">INDEX</span> index_name <span class="hljs-keyword">ON</span> table_name (column1_name);
     </code></pre>
-                </li>
-                <li>
-                    <p><strong>Multi-column Indexes</strong>: defined on more than one column of a table</p>
-                    <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">INDEX</span> index_name
+                    </li>
+                    <li>
+                        <p><strong>Multi-column Indexes</strong>: defined on more than one column of a table</p>
+                        <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">INDEX</span> index_name
       <span class="hljs-keyword">ON</span> table_name (column1_name, column2_name);
     </code></pre>
-                </li>
-                <li>
-                    <p><strong>Partial Indexes</strong>: A partial index is an index built over a subset of a table; the
-                        subset is
-                        defined by a conditional expression (called the predicate of the partial index). The index
-                        contains entries
-                        only for those table rows that satisfy the predicate. example with gist method: </p>
-                    <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> index_name
+                    </li>
+                    <li>
+                        <p><strong>Partial Indexes</strong>: A partial index is an index built over a subset of a table;
+                            the
+                            subset is
+                            defined by a conditional expression (called the predicate of the partial index). The index
+                            contains entries
+                            only for those table rows that satisfy the predicate. example with gist method: </p>
+                        <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> index_name
       <span class="hljs-keyword">on</span> table_name <span class="hljs-keyword">USING</span> gist (conditional_expression);
     </code></pre>
-                </li>
-                <li>
-                    <p><strong>DROP INDEX</strong>: </p>
-                    <pre><code class="lang-sql">  <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">INDEX</span> index_name;
+                    </li>
+                    <li>
+                        <p><strong>DROP INDEX</strong>: </p>
+                        <pre><code class="lang-sql">  <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">INDEX</span> index_name;
     </code></pre>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <pre><code>**Note**: In Postgres <span class="hljs-keyword">after</span> setting <span class="hljs-keyword">the</span> index, <span class="hljs-keyword">it</span> will update automatically <span class="hljs-keyword">after</span> inserting <span class="hljs-built_in">new</span> data <span class="hljs-keyword">into</span> <span class="hljs-keyword">the</span> table.   
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <pre><code>**Note**: In Postgres <span class="hljs-keyword">after</span> setting <span class="hljs-keyword">the</span> index, <span class="hljs-keyword">it</span> will update automatically <span class="hljs-keyword">after</span> inserting <span class="hljs-built_in">new</span> data <span class="hljs-keyword">into</span> <span class="hljs-keyword">the</span> table.   
     
     **Note**: With creating <span class="hljs-keyword">a</span> column <span class="hljs-keyword">as</span> primary-key <span class="hljs-keyword">or</span> unique, Postgres automatically will <span class="hljs-built_in">create</span> <span class="hljs-keyword">an</span> index <span class="hljs-keyword">for</span> these column. So you should never <span class="hljs-built_in">create</span> <span class="hljs-keyword">a</span> manual index <span class="hljs-keyword">for</span> this kind <span class="hljs-keyword">of</span> column because <span class="hljs-keyword">the</span> index exists.
     </code></pre>
-    <p><br></p>
-    <h1 id="view-and-stored-procedure">View And Stored Procedure</h1>
-    <p>Views and stored procedures can both simplify and optimize the database design and performance. Through these
-        tools, you can encapsulate complex queries and logic in reusable and maintainable code, reduce the amount of
-        data
-        transferred between the database and the application, implement security and access control, enhance the
-        consistency
-        and accuracy of the data by enforcing business rules and validations, and modify the logic and structure of the
-        views and stored procedures without affecting dependent objects or applications.</p>
-    <p>When should I use a view and when should I use a stored procedure?<br>Most simply, a view is used when only a
-        SELECT statement is needed. Views should be used to store commonly-used JOIN queries and specific columns to
-        build
-        virtual tables of an exact set of data we want to see. Stored procedures hold the more complex logic, such as
-        INSERT, DELETE, and UPDATE statements to automate large SQL workflows. Stored Procedure also accept parameters
-        but
-        views Does NOT.</p>
-    <ul>
-        <li>
-            <p><strong>View:</strong> </p>
-            <p> Views are virtual tables that return the result of a query every time they are accessed. When you create
-                a
-                view, you basically create a query and assign a name to the query:</p>
-            <pre><code class="lang-sql">  <span class="hljs-comment">-- standard view definition:</span>
+        <p><br></p>
+        <h1 id="view-and-stored-procedure">View And Stored Procedure</h1>
+        <p>Views and stored procedures can both simplify and optimize the database design and performance. Through these
+            tools, you can encapsulate complex queries and logic in reusable and maintainable code, reduce the amount of
+            data
+            transferred between the database and the application, implement security and access control, enhance the
+            consistency
+            and accuracy of the data by enforcing business rules and validations, and modify the logic and structure of
+            the
+            views and stored procedures without affecting dependent objects or applications.</p>
+        <p>When should I use a view and when should I use a stored procedure?<br>Most simply, a view is used when only a
+            SELECT statement is needed. Views should be used to store commonly-used JOIN queries and specific columns to
+            build
+            virtual tables of an exact set of data we want to see. Stored procedures hold the more complex logic, such
+            as
+            INSERT, DELETE, and UPDATE statements to automate large SQL workflows. Stored Procedure also accept
+            parameters
+            but
+            views Does NOT.</p>
+        <ul>
+            <li>
+                <p><strong>View:</strong> </p>
+                <p> Views are virtual tables that return the result of a query every time they are accessed. When you
+                    create
+                    a
+                    view, you basically create a query and assign a name to the query:</p>
+                <pre><code class="lang-sql">  <span class="hljs-comment">-- standard view definition:</span>
       <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">REPLACE</span> <span class="hljs-keyword">VIEW</span> my_view <span class="hljs-keyword">AS</span>
       <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, rating
       <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">authors</span>
@@ -810,20 +878,26 @@
       <span class="hljs-comment">-- drop a view:</span>
       <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">VIEW</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> my_view;
     </code></pre>
-            <p> <strong>Note</strong>: Views do not store any data except the materialized views. In PostgreSQL, you can
-                create special views called materialized views that store data physically and periodically refresh data
-                from the
-                base tables. The materialized views are handy in many scenarios, such as faster data access to a remote
-                server
-                and caching. So materialized views are used if data from complex queries needs to be accessed quickly.
-            </p>
-            <p> Materialized views don't always have the most recent data. Since the result of a query is stored in a
-                materialized view like in a cache, you need to make sure to refresh it periodically.</p>
-            <p> In conclusion Regular-View execute in calling time so they always return recent data, But
-                Materialized-View
-                act as caching mechanism so they are faster than Regular-View but they need to be refresh periodically:
-            </p>
-            <pre><code class="lang-sql">  <span class="hljs-comment">-- materialized view definition:</span>
+                <p> <strong>Note</strong>: Views do not store any data except the materialized views. In PostgreSQL, you
+                    can
+                    create special views called materialized views that store data physically and periodically refresh
+                    data
+                    from the
+                    base tables. The materialized views are handy in many scenarios, such as faster data access to a
+                    remote
+                    server
+                    and caching. So materialized views are used if data from complex queries needs to be accessed
+                    quickly.
+                </p>
+                <p> Materialized views don't always have the most recent data. Since the result of a query is stored in
+                    a
+                    materialized view like in a cache, you need to make sure to refresh it periodically.</p>
+                <p> In conclusion Regular-View execute in calling time so they always return recent data, But
+                    Materialized-View
+                    act as caching mechanism so they are faster than Regular-View but they need to be refresh
+                    periodically:
+                </p>
+                <pre><code class="lang-sql">  <span class="hljs-comment">-- materialized view definition:</span>
       <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">MATERIALIZED</span> <span class="hljs-keyword">VIEW</span> my_view <span class="hljs-keyword">AS</span>
       <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, rating
       <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">authors</span>
@@ -835,24 +909,27 @@
       <span class="hljs-comment">-- refresh a materialize view</span>
       REFRESH MATERIALIZED VIEW popular_active_authors;
     </code></pre>
-            <p> <strong>Note</strong>: Materialized views can be refreshed when their underlying source data changes
-                using
-                Postgres triggers. </p>
-        </li>
-    </ul>
-    <p><br></p>
-    <ul>
-        <li>
-            <p><strong>Stored Procedure:</strong> </p>
-            <p> A stored procedure is a set of SQL statements that perform a specific task. You can use stored
-                procedures to
-                encapsulate business logic, enforce security rules, or automate repetitive operations. Stored procedures
-                are
-                stored in the database, and are executed by the database engine. This means that stored procedures can
-                be faster
-                and more efficient than views, but also that they may become outdated or inconsistent with the data.</p>
-            <p> Example of a procedure that give 2 variable and run a query in transactional way:</p>
-            <pre><code class="lang-SQL">  -- <span class="hljs-function"><span class="hljs-keyword">procedure</span> <span class="hljs-title">definition</span> <span class="hljs-title">with</span> <span class="hljs-title">PLPGSQL</span> <span class="hljs-title">language</span>
+                <p> <strong>Note</strong>: Materialized views can be refreshed when their underlying source data changes
+                    using
+                    Postgres triggers. </p>
+            </li>
+        </ul>
+        <p><br></p>
+        <ul>
+            <li>
+                <p><strong>Stored Procedure:</strong> </p>
+                <p> A stored procedure is a set of SQL statements that perform a specific task. You can use stored
+                    procedures to
+                    encapsulate business logic, enforce security rules, or automate repetitive operations. Stored
+                    procedures
+                    are
+                    stored in the database, and are executed by the database engine. This means that stored procedures
+                    can
+                    be faster
+                    and more efficient than views, but also that they may become outdated or inconsistent with the data.
+                </p>
+                <p> Example of a procedure that give 2 variable and run a query in transactional way:</p>
+                <pre><code class="lang-SQL">  -- <span class="hljs-function"><span class="hljs-keyword">procedure</span> <span class="hljs-title">definition</span> <span class="hljs-title">with</span> <span class="hljs-title">PLPGSQL</span> <span class="hljs-title">language</span>
       <span class="hljs-title">CREATE</span> <span class="hljs-title">OR</span> <span class="hljs-title">REPLACE</span> <span class="hljs-title">PROCEDURE</span> <span class="hljs-title">my_procedure</span><span class="hljs-params">(
           due_id int,
           name_value varchar
@@ -872,15 +949,17 @@
       -- calling a <span class="hljs-function"><span class="hljs-keyword">procedure</span>
       <span class="hljs-title">CALL</span> <span class="hljs-title">my_procedure</span><span class="hljs-params">(678, <span class="hljs-string">'jeff'</span>)</span></span>
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="function">Function</h1>
-    <p>Postgres functions are similar to views but allow more procedural computations. Function can take arguments and
-        return value, things we have not in View. Notice that Functions can not run transactional queries but Procedures
-        can
-        do it:</p>
-    <pre><code class="lang-sql"><span class="hljs-comment">-- define a FUNCTION with SQL language that return a int value</span>
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="function">Function</h1>
+        <p>Postgres functions are similar to views but allow more procedural computations. Function can take arguments
+            and
+            return value, things we have not in View. Notice that Functions can not run transactional queries but
+            Procedures
+            can
+            do it:</p>
+        <pre><code class="lang-sql"><span class="hljs-comment">-- define a FUNCTION with SQL language that return a int value</span>
     <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">REPLACE</span> <span class="hljs-keyword">FUNCTION</span> my_function() 
     <span class="hljs-keyword">RETURNS</span> <span class="hljs-built_in">int</span> 
     <span class="hljs-keyword">as</span>
@@ -905,26 +984,29 @@
     <span class="hljs-comment">-- call a function</span>
     <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_function();
     </code></pre>
-    <p><br></p>
-    <h1 id="trigger">Trigger</h1>
-    <p>Postgres triggers are used to invoke previously defined Postgres functions before or after a specific database
-        event (e.g. INSERT) occurs.</p>
-    <ul>
-        <li>
-            <p><strong>Syntax</strong>:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> trigger_name [<span class="hljs-keyword">BEFORE</span>|<span class="hljs-keyword">AFTER</span>|INSTEAD <span class="hljs-keyword">OF</span>] event_name
+        <p><br></p>
+        <h1 id="trigger">Trigger</h1>
+        <p>Postgres triggers are used to invoke previously defined Postgres functions before or after a specific
+            database
+            event (e.g. INSERT) occurs.</p>
+        <ul>
+            <li>
+                <p><strong>Syntax</strong>:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> trigger_name [<span class="hljs-keyword">BEFORE</span>|<span class="hljs-keyword">AFTER</span>|INSTEAD <span class="hljs-keyword">OF</span>] event_name
       <span class="hljs-keyword">ON</span> table_name
       [
       <span class="hljs-comment">-- Trigger logic goes here....</span>
       ];
     </code></pre>
-        </li>
-        <li>
-            <p>Example: we have a function that updates the value of the column named updated_at and want to trigger it
-                every
-                time the table_name is updated. Using this method, we can auto-fill our custom column in the selected
-                table:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">REPLACE</span> <span class="hljs-keyword">FUNCTION</span> trigger_set_timestamp()
+            </li>
+            <li>
+                <p>Example: we have a function that updates the value of the column named updated_at and want to trigger
+                    it
+                    every
+                    time the table_name is updated. Using this method, we can auto-fill our custom column in the
+                    selected
+                    table:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">REPLACE</span> <span class="hljs-keyword">FUNCTION</span> trigger_set_timestamp()
       <span class="hljs-keyword">RETURNS</span> <span class="hljs-keyword">TRIGGER</span> <span class="hljs-keyword">AS</span> $$
       <span class="hljs-keyword">BEGIN</span>
           NEW.updated_at = <span class="hljs-keyword">NOW</span>();
@@ -932,73 +1014,79 @@
       <span class="hljs-keyword">END</span>;
       $$ LANGUAGE plpgsql;
     </code></pre>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> TRIGGER set_timestamp BEFORE UPDATE 
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> TRIGGER set_timestamp BEFORE UPDATE 
       <span class="hljs-keyword">ON</span> table_name
       <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span> ROW
       EXECUTE <span class="hljs-function"><span class="hljs-keyword">PROCEDURE</span> <span class="hljs-title">trigger_set_timestamp</span><span class="hljs-params">()</span>;</span>
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="transferring-data">Transferring Data</h1>
-    <ul>
-        <li>
-            <p><strong>Transfer data from file to the table</strong>:<br>Below see how we can copy data from CSV file to
-                the
-                table in postgres. If the file has not header, remove HEADER from the WITH STATEMENT:</p>
-            <pre><code class="lang-sql">  \<span class="hljs-keyword">copy</span><span class="bash"> target_table (column1, column2) FROM <span class="hljs-string">'source.csv'</span>   
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="transferring-data">Transferring Data</h1>
+        <ul>
+            <li>
+                <p><strong>Transfer data from file to the table</strong>:<br>Below see how we can copy data from CSV
+                    file to
+                    the
+                    table in postgres. If the file has not header, remove HEADER from the WITH STATEMENT:</p>
+                <pre><code class="lang-sql">  \<span class="hljs-keyword">copy</span><span class="bash"> target_table (column1, column2) FROM <span class="hljs-string">'source.csv'</span>   
     </span>              WITH (FORMAT csv, DELIMITER <span class="hljs-string">','</span>, HEADER);
     </code></pre>
-            <p> Note: The file should be in destination that postgres has permission to access it, for example:</p>
-            <pre><code class="lang-bash">  sudo mv source.csv /var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">postgres</span>/</span>
+                <p> Note: The file should be in destination that postgres has permission to access it, for example:</p>
+                <pre><code class="lang-bash">  sudo mv source.csv /var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">postgres</span>/</span>
     </code></pre>
-        </li>
-    </ul>
-    <ul>
-        <li>
-            <p><strong>Transferring Data Between tables</strong>:<br> It is possible to transfer data between tables.
-                With
-                insert, a new row will be added to the table, and with update, present row values will be changed in
-                selected
-                columns:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> target_table <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> source_table <span class="hljs-keyword">WHERE</span> condition;
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <p><strong>Transferring Data Between tables</strong>:<br> It is possible to transfer data between
+                    tables.
+                    With
+                    insert, a new row will be added to the table, and with update, present row values will be changed in
+                    selected
+                    columns:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> target_table <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> source_table <span class="hljs-keyword">WHERE</span> condition;
     </code></pre>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">UPDATE</span> target_table <span class="hljs-keyword">SET</span> target_column = 
+                <pre><code class="lang-sql">  <span class="hljs-keyword">UPDATE</span> target_table <span class="hljs-keyword">SET</span> target_column = 
       (<span class="hljs-keyword">SELECT</span> source_column <span class="hljs-keyword">FROM</span> source_table <span class="hljs-keyword">WHERE</span> condition);
     </code></pre>
-            <p> As an example here we added data from 'artists' table to the artist column in 'album' table.
-                Then we updated the track column based on track table with defined condition:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> album (artist) <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">FROM</span> artist;
+                <p> As an example here we added data from 'artists' table to the artist column in 'album' table.
+                    Then we updated the track column based on track table with defined condition:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> album (artist) <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">FROM</span> artist;
       <span class="hljs-keyword">UPDATE</span> album <span class="hljs-keyword">SET</span> track = (<span class="hljs-keyword">SELECT</span> track.name <span class="hljs-keyword">FROM</span> track 
       <span class="hljs-keyword">WHERE</span> album.artist = track.artist);
     </code></pre>
-        </li>
-    </ul>
-    <p><br></p>
-    <h1 id="vaccum">Vaccum</h1>
-    <p>In normal PostgreSQL operation, tuples that are deleted or obsoleted by an update are not physically removed from
-        their table; they remain present until a VACUUM is done. Therefore it's necessary to do VACUUM periodically,
-        especially on frequently-updated tables:</p>
-    <ol>
-        <li>
-            <p><strong>Plain VACUUM</strong>: simply reclaims space and makes it available for re-use. This form of the
-                command can operate in parallel with normal reading and writing of the table, as an exclusive lock is
-                not
-                obtained. However, extra space is not returned to the operating system (in most cases); it's just kept
-                available for re-use within the same table. It also allows us to leverage multiple CPUs in order to
-                process
-                indexes. This feature is known as parallel vacuum.</p>
-        </li>
-        <li>
-            <p><strong>VACUUM FULL</strong>: rewrites the entire contents of the table into a new disk file with no
-                extra
-                space, allowing unused space to be returned to the operating system. This form is much slower and
-                requires an
-                ACCESS EXCLUSIVE lock on each table while it is being processed.</p>
-        </li>
-    </ol>
-    <p>Example: </p>
-    <pre><code class="lang-sql"># check database usage size before operation
+            </li>
+        </ul>
+        <p><br></p>
+        <h1 id="vaccum">Vaccum</h1>
+        <p>In normal PostgreSQL operation, tuples that are deleted or obsoleted by an update are not physically removed
+            from
+            their table; they remain present until a VACUUM is done. Therefore it's necessary to do VACUUM periodically,
+            especially on frequently-updated tables:</p>
+        <ol>
+            <li>
+                <p><strong>Plain VACUUM</strong>: simply reclaims space and makes it available for re-use. This form of
+                    the
+                    command can operate in parallel with normal reading and writing of the table, as an exclusive lock
+                    is
+                    not
+                    obtained. However, extra space is not returned to the operating system (in most cases); it's just
+                    kept
+                    available for re-use within the same table. It also allows us to leverage multiple CPUs in order to
+                    process
+                    indexes. This feature is known as parallel vacuum.</p>
+            </li>
+            <li>
+                <p><strong>VACUUM FULL</strong>: rewrites the entire contents of the table into a new disk file with no
+                    extra
+                    space, allowing unused space to be returned to the operating system. This form is much slower and
+                    requires an
+                    ACCESS EXCLUSIVE lock on each table while it is being processed.</p>
+            </li>
+        </ol>
+        <p>Example: </p>
+        <pre><code class="lang-sql"># check database usage size before operation
     SELECT pg_size_pretty(<span class="hljs-name">pg_database_size</span>('database_name')) AS database_size<span class="hljs-comment">;</span>
     
     # plain vaccum on custom table
@@ -1010,48 +1098,49 @@
     # full vaccum on database
     VACUUM (<span class="hljs-name">VERBOSE</span>, ANALYZE, FULL)<span class="hljs-comment">;</span>
     </code></pre>
-    <p><br></p>
-    <h1 id="other">Other</h1>
-    <ul>
-        <li>
-            <p><strong>Text generation</strong>:<br>here is an example of creating a table with a single column and
-                filling it
-                with random data:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> bigtext (<span class="hljs-keyword">content</span> <span class="hljs-built_in">TEXT</span>);
+        <p><br></p>
+        <h1 id="other">Other</h1>
+        <ul>
+            <li>
+                <p><strong>Text generation</strong>:<br>here is an example of creating a table with a single column and
+                    filling it
+                    with random data:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> bigtext (<span class="hljs-keyword">content</span> <span class="hljs-built_in">TEXT</span>);
       <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> bigtext <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">concat</span>(<span class="hljs-string">'content'</span>, generate_series(<span class="hljs-number">100000</span>, <span class="hljs-number">199999</span>));
     </code></pre>
-        </li>
-    </ul>
-    <ul>
-        <li>
-            <p><strong>Concurrency and Transaction</strong>:<br> Lock a special section in the table to prevent conflict
-                when
-                working online and different results because of concurrency issues, and unlock it once the work is
-                finished:</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">BEGIN</span>;
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <p><strong>Concurrency and Transaction</strong>:<br> Lock a special section in the table to prevent
+                    conflict
+                    when
+                    working online and different results because of concurrency issues, and unlock it once the work is
+                    finished:</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">BEGIN</span>;
       <span class="hljs-keyword">UPDATE</span> accounts <span class="hljs-keyword">SET</span> balance = balance - <span class="hljs-number">100.00</span>
           <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Alice'</span>;
       <span class="hljs-comment">-- etc</span>
       <span class="hljs-keyword">COMMIT</span>;
     </code></pre>
-            <p> Double phase locking (Exclusive lock + Shared lock):</p>
-            <pre><code class="lang-sql">  <span class="hljs-keyword">BEGIN</span>;
+                <p> Double phase locking (Exclusive lock + Shared lock):</p>
+                <pre><code class="lang-sql">  <span class="hljs-keyword">BEGIN</span>;
       <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">account</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Alice'</span> <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">UPDATE</span>;
       <span class="hljs-comment">-- etc</span>
       <span class="hljs-keyword">UPDATE</span> accounts <span class="hljs-keyword">SET</span> balance = balance - <span class="hljs-number">100.00</span>
           <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Alice'</span>;
       <span class="hljs-keyword">COMMIT</span>;
     </code></pre>
-        </li>
-    </ul>
-    <ul>
-        <li><strong>Datatypes</strong>: <a
-                href="https://www.w3schools.com/sql/sql_datatypes.asp">https://www.w3schools.com/sql/sql_datatypes.asp</a>
-        </li>
-    </ul>
+            </li>
+        </ul>
+        <ul>
+            <li><strong>Datatypes</strong>: <a
+                    href="https://www.w3schools.com/sql/sql_datatypes.asp">https://www.w3schools.com/sql/sql_datatypes.asp</a>
+            </li>
+        </ul>
 
 
-
+    </div>
 </body>
 
 </html>

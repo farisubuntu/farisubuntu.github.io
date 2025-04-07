@@ -1,0 +1,52 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "FireCode", "Helvetica Neue",
+        sans-serif;
+    font-size: 1.3rem;
+}
+
+code {
+    font-size: inherit;
+    color: inherit;
+}
+
+pre {
+    border: 1px dashed green;
+    padding: 0.5rem;
+    white-space: pre-wrap;
+}
+
+.hljs-selector-tag,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.attr-name,
+.comment,
+.string,
+.token.char,
+.hljs-string {
+    color: green;
+}
+
+.hljs-tag,
+.tag {
+    color: green;
+}
+
+.hljs-function,
+.hljs-keyword,
+.hljs-title,
+.hljs-params,
+.token.function,
+.token.keyword,
+
+.token.attr-value {
+    color: blue;
+}
+
+.builtin,
+.token.boolean,
+.token.constant,
+.token.number,
+.token.property {
+    color: red;
+}
